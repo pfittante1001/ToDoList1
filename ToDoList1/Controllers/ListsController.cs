@@ -50,7 +50,7 @@ namespace ToDoList1.Controllers
         {
             if (ModelState.IsValid)
             {
-                var currentData = DateTime.Now;
+                list.Date = DateTime.Now.Date;
                 db.Lists.Add(list);
                 db.SaveChanges();
                 return RedirectToAction("Index");

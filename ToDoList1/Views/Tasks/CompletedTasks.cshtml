@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ToDoList1.Models.Task>
+@*This foreach loop calls the ToggleDone method in the task controller. If the box is checked
+    then the task is done. The methoad uses the property task id. The value of the property IsDone
+    in the Tasks model is changed and depending on the check or uncheck the appropiate glyphion is displayed.
+    The results plus the TaskName and TaskTitle are presented in table form with the checkbox on the left
+    taskName then TaskTitle*@
+<table>
+    @foreach (var item in Model)
+    {
+        if (item.IsDone == true)
+        {
+            <tr>
+                <td>        @*this method calls the toggledone in the task controller id=item.taskID calls the current taskID in the db*@
+                    <a href="@Url.Action("ToggleDone", new { id=item.TaskID })">
+                        @if (item.IsDone)
+                        {
+                            <span class="glyphicon glyphicon-check"></span>
+                        }
+                        else
+                        {
+                            <span class="glyphicon glyphicon-unchecked"></span>
+                        }
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskName)
+                </td>
+                <td>
+                    : @Html.DisplayFor(modelItem => item.List.Title)
+                </td>
+            </tr>
+        }
+    }
+
+</table>

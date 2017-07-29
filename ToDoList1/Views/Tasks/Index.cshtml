@@ -1,11 +1,19 @@
 ﻿@model IEnumerable<ToDoList1.Models.Task>
 
+
 @{
     ViewBag.Title = "Index";
 }
+@*The following razor code renders the parial view Reminder.cshtml. The h2 is the title.*@
+@{
+    <h2>Reminder</h2>
+    Html.RenderPartial("Reminder");
+}
+
+
+
 
 <h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -53,5 +61,9 @@
         </td>
     </tr>
 }
-
 </table>
+@*The following razor code renders the parial view Reminder.cshtml. The h2 is the title.*@
+@{
+    <h2>Completed Tasks</h2>
+    Html.RenderPartial("CompletedTasks");
+}

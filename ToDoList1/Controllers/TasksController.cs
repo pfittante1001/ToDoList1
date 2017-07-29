@@ -20,6 +20,48 @@ namespace ToDoList1.Controllers
             var tasks = db.Tasks.Include(t => t.List);
             return View(tasks.ToList());
         }
+        //Create New Views
+
+        public ActionResult Reminder()
+        {
+            var tasks = db.Tasks.Include(t => t.List);
+            return View(tasks.ToList());
+        }
+
+        public ActionResult CompletedTasks()
+        {
+
+            var tasks = db.Tasks.Include(t => t.List);
+            return View(tasks.ToList());
+        }
+        //The above two methods create two partial views utilizing lists
+
+        //the following is a method that is called by A foreach loop in Reminder.cshtml
+        public ActionResult ToggleDone(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Task task = db.Tasks.Find(id);
+            if (task == null)
+            {
+                return HttpNotFound();
+            }
+            if (task.IsDone)
+            {
+                task.IsDone = false;
+            }
+            else
+            {
+                task.IsDone = true;
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+
+        }
 
         // GET: Tasks/Details/5
         public ActionResult Details(int? id)
@@ -119,7 +161,7 @@ namespace ToDoList1.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
